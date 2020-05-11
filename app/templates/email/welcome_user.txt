@@ -1,0 +1,8 @@
+Hi {{user.username}},
+Welcome to M & G blog
+We're happy you're here. You can now view and make comments on any blog.
+Thanks for registering an account on M & G blog. We're excited to see you join the community! As a member of M & G, you get access to things viewing blogs and commenting on any blog, post a question.
+
+The best thing about M & G is our incredible community. All of the data that's been added to our database has been contributed by users like you. 
+
+Take some time to look around and if you have any questions, feel free to stop by the forums.

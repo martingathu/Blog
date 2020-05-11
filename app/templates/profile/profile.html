@@ -1,0 +1,96 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{%block title%}
+PROFILE
+{%endblock%}
+
+{% block content %}
+<div class="container" style="font-size: large;">
+    <div class="row">
+
+        <!--Display profile photo-->
+        <div class="col-md-4 content-section" style= "float:left;padding: 1%;border-radius: 5%; font-size: large;">
+
+            {% if user.profile_pic_path %}
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail img-circle img-respons img-thumbnail">
+            {%else%}
+            <img src="../static/images/profile.png" class="img-thumbnail img-circle img-respons img-thumbnail" style="width: 100px; height: 100px;">
+            
+            {% endif %}
+
+            <h3> {{user.username| capitalize}} </h3>
+            <h4>{{user.email}}</h4>
+            
+            <!--Displaying user bio-->
+            {% if user.bio %}
+            <h3><strong>My Bio</strong></h3>
+              <p> {{user.bio}}</p>
+            {%else%}
+              <p> {{user.username| capitalize}} has no bio </p>
+            {% endif %}
+
+            <h4>Total Posts {{posts.total}}</h4>
+            <!-- update profile -->
+            {% if user == current_user %}
+            <a  class="btn btn-success" href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+            {% endif %}
+        </div>
+
+        <!-- displaying  Username-->
+        <div class="col-md-8">
+          <div class="" style="padding-left: 30%;">
+              <h1 style="padding-left: 10%;">Post a Question</h1>
+              {{wtf.quick_form(form)}}
+        
+              {{form.csrf_token}}
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md=10">
+          <h1 style="text-align: center;">My Posts</h1>
+            {% for item in posts.items %}
+            <div class="panel" style ="background:rgb(87, 88, 90);color:white;">
+                <div class="panel-body" style="font-size: large;">
+                    <div style="color: whitesmoke; padding: 3px;"><strong style="color: cyan;">Topic:</strong>{{ item.topic}}</div>
+                    <div style="color: whitesmoke;padding: 3px;"><strong style="color: cyan;">Category:</strong>{{ item.category | capitalize }}</div>
+                    <div>{{ item.description | capitalize }}</div>
+                    <div style="color: whitesmoke;padding: 3px;"><strong style="color: cyan;">Posted: </strong> {{item.date | timeago }}</div>
+                    <div class="like" style="padding-top: 10px;">
+                        <p ></a> {{item.downvotes}} <a class="btn" style="color:white; font-size: large;" href="{{url_for('main.comment', pname = item.id)}}"><strong>Comment</strong></a></p>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    </div>
+
+            {% endfor %}
+        </div>
+          
+      </div>
+        </div>
+        
+      </div> 
+
+
+    </div>
+    
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form action="{{url_for('main.comment', pname = item.id)}}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Dalete" >
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

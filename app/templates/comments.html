@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{%block title%}
+COMMENTS
+{%endblock%}
+
+{% block content %}
+<div class="panel-body container"  style ="background:rgb(87, 88, 90);color:white; padding: 3px; font-size: large;">
+    <div style="padding: 3px;"><strong style="color: cyan;">Topic:</strong>{{ posts.topic}}</div>
+    <div style="padding: 3px;"><strong style="color: cyan;">Category:</strong>{{ posts.category | capitalize }}</div>
+    <div>{{ posts.description | capitalize }}</div>
+    <div style="padding: 3px;"><strong style="color: cyan;">Posted: </strong> {{posts.date | timeago }}</div>
+    <div class="like" style="padding-top: 10px;">
+        <p> <a class="btn" style="font-size: large;" href="{{url_for('main.comment', pname = posts.id)}}"><strong>Comment</strong></a></p>
+        
+    </div>
+
+</div>
+<div class="container">
+  {{wtf.quick_form(form)}}
+  <div>
+    <h3 style="color: cyan;">Comments</h3>
+  {% for comment in comments%}
+  <!-- <div style="padding: 3px; font-size: large;">{{ comment.user_id}}</div> -->
+    <div style="padding: 3px; font-size: large;">{{ comment.comment}}</div>
+  {%endfor%}
+  </div>
+</div>
+
+{% endblock %}
