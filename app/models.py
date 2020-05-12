@@ -78,7 +78,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
     comment = db.Column(db.Text)
-    
+      
     def __repr__(self):
         return f"Comment('{self.user}', '{self.comment}')'"
     
