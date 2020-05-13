@@ -17,7 +17,7 @@ class Config:
     SECRET_KEY = '25616796'
 
     ''' Api set up '''
-    QUOTE_API_BASE_URL ='GET http://quotes.stormconsultancy.co.uk/random.json'
+    QUOTE_API ='GET http://quotes.stormconsultancy.co.uk/random.json'
     
     
 
