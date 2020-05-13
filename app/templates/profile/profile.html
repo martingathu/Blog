@@ -36,30 +36,19 @@ PROFILE
             <a  class="btn btn-success" href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
             {% endif %}
         </div>
-
-        <!-- displaying  Username-->
-        <div class="col-md-8">
-          <div class="" style="padding-left: 30%;">
-              <h1 style="padding-left: 10%;">Post a Question</h1>
-              {{wtf.quick_form(form)}}
-        
-              {{form.csrf_token}}
-            </div>
-        </div>
       </div>
       <div class="row">
         <div class="col-md=10">
           <h1 style="text-align: center;">My Posts</h1>
             {% for item in posts.items %}
-            <div class="panel" style ="background:rgb(87, 88, 90);color:white;">
+            <div class="panel" style ="background:whitesmoke;color:black;">
                 <div class="panel-body" style="font-size: large;">
-                    <div style="color: whitesmoke; padding: 3px;"><strong style="color: cyan;">Topic:</strong>{{ item.topic}}</div>
-                    <div style="color: whitesmoke;padding: 3px;"><strong style="color: cyan;">Category:</strong>{{ item.category | capitalize }}</div>
+                    <div style="color: black; padding: 3px;"><strong style="color: cyan;">Topic:</strong>{{ item.topic}}</div>
                     <div>{{ item.description | capitalize }}</div>
-                    <div style="color: whitesmoke;padding: 3px;"><strong style="color: cyan;">Posted: </strong> {{item.date | timeago }}</div>
+                    <div style="color: black;padding: 3px;"><strong style="color: cyan;">Posted: </strong> {{item.date | timeago }}</div>
                     <div class="like" style="padding-top: 10px;">
-                        <p ></a> {{item.downvotes}} <a class="btn" style="color:white; font-size: large;" href="{{url_for('main.comment', pname = item.id)}}"><strong>Comment</strong></a></p>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        <p ></a> {{item.downvotes}} <a class="btn btn-info" style="font-size: large;" href="{{url_for('main.comment', pname = item.id)}}"><strong>Comment</strong></a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></p>
                     </div>
 
             {% endfor %}
