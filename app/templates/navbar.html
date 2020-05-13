@@ -16,6 +16,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
+        <li><a href="{{url_for('main.blog',uname=current_user.username)}}">Create a Blog</a></li>
         <li><a href="{{url_for('main.profile',uname=current_user.username)}}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
         <li><a href="{{url_for('main.logout')}}"><span class="glyphicon glyphicon-user"></span> Sign out</a></li>
         {% else %}
