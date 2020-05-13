@@ -1,13 +1,9 @@
 {%extends 'base.html'%}
-
-{%block title%}
-HOME
-{%endblock%}
-
 {%block content%}
 
 <body class="container-fluid" style="font-size: large; background-color: #D5D8DC;">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            
         <!-- Indicators -->
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -19,14 +15,32 @@ HOME
         <div class="carousel-inner">
           <div class="item active">
             <img  style="height: 350px; width: 100%" src="../static/images/img4.jpg" alt="Los Angeles">
+            <div class="carousel-caption">
+                <div class="" style="font-size: 20px; margin-top:40px; text-align: center;">
+                  {{ quotes.quote }}
+                  <cite title="Source Title"> {{ quotes.author }} </cite>
+                </div>
+            </div>
           </div>
       
           <div class="item">
             <img style="height: 350px; width: 100%" src="../static/images/img2.jpeg" alt="Chicago">
+            <div class="carousel-caption">
+              <div class="" style="font-size: 20px; margin-top:40px; text-align: center;">
+                {{ quotes.quote }}
+                <cite title="Source Title"> {{ quotes.author }} </cite>
+              </div>
+          </div>
           </div>
       
           <div class="item">
             <img style="height: 350px; width: 100%;" src="../static/images/img3.jpeg" alt="New York">
+            <div class="carousel-caption">
+              <div class="" style="font-size: 20px; margin-top:40px; text-align: center;opacity: 0.4;">
+                {{ quotes.quote }}
+                <cite title="Source Title"> {{ quotes.author }} </cite>
+              </div>
+          </div>
           </div>
         </div>
       
@@ -40,29 +54,18 @@ HOME
           <span class="sr-only">Next</span>
         </a>
     </div>
-    <div class="container" style="padding-top: 18px;">
-
-        <div class="row">
-            <div style="background-color: #FF7043;">
-        <!-- random Quote section  -->
-        <h3> Quote of the Day</h3>
-        <ul>
-           {% for random_quote in random %}
-               <li>{{ random_quote.author}}</li>
-           {% endfor %}
-       </ul>
-                <h3 style="color: white;padding: 10px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">RECENT POSTS</h2>
-            </div>
-            {% for item in posts.items %}
+        <div>
+          {% for item in posts.items %}
             <div class="card col-md-5" style="border: 1px solid white;background-color: white; padding: 10px;margin: 2%;">
                 <div class="card-header" style="background-color: #E1BEE7;">Topic: {{ item.topic}}</div>
                 <div class="card-body" style="background-color: #FBE9E7;"  >{{ item.description}}</div>
                 <div class="card-footer" style="background-color: #E1BEE7;">Posted: {{item.date | timeago }}</div>
                 <div class="card-footer" style="background-color: #E1BEE7;"><a class="btn" style="color:white; font-size: large;" href="{{url_for('main.comment', pname = item.id)}}"><strong>Comment</strong></a></div>
             </div>       
-            {% endfor %}
+          {% endfor %}
         </div>
-
+    
+    
         <div style="border: 1px solid rgb(243, 243, 245);width: 30%; margin-left: auto; margin-right: auto;">
             {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_num %}
