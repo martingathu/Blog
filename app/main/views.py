@@ -10,14 +10,16 @@ from werkzeug.security import generate_password_hash
 from .forms import UpdateProfile
 from .forms import *
 from ..models import *
+from ..requests import get_quotes
 # from werkzeug.utils import secure_filename
 
 
 @main.route('/')
 def index():
+    quotes = get_quotes()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date.desc()).paginate(page=page, per_page=8)
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', posts=posts ,quotes=quotes)
 
 
 @main.route('/signup' , methods=['GET', 'POST'])
@@ -60,29 +62,29 @@ def login():
 @main.route('/user/<uname>', methods=['GET', 'POST'])
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    form = PostForm()
+    # form = PostForm()
 
     if not user.is_authenticated:
         flash('please login', 'danger')
         return redirect(url_for('main.login'))
    
-    if form.validate_on_submit():
-        topic = form.topic.data
-        category = form.category.data
-        description = form.description.data
+    # if form.validate_on_submit():
+    #     topic = form.topic.data
+    #     category = form.category.data
+    #     description = form.description.data
         
-        post = Post(owner_id=user.id, topic=topic, category=category, description=description)
-        db.session.add(post)
-        db.session.commit()
+    #     post = Post(owner_id=user.id, topic=topic, category=category, description=description)
+    #     db.session.add(post)
+    #     db.session.commit()
 
-        return redirect(url_for('main.profile', uname=user.username))
+    #     return redirect(url_for('main.profile', uname=user.username))
     
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=uname).first()
     posts = Post.query.filter_by(owner_id=user.id). order_by(Post.date.desc()).paginate(page=page, per_page=4)
      
 
-    return render_template("profile/profile.html", user = user, posts=posts, form = form)
+    return render_template("profile/profile.html", user = user, posts=posts )
 
 @main.route('/logout', methods=['GET'])
 def logout():
@@ -164,4 +166,36 @@ def delete(pname):
     flash('your has been deleted!', 'success')
     
     return redirect(url_for('main.index',pname=pname))
+
+
+@main.route('/<uname>/blog',methods = ['GET','POST'])
+@login_required
+def blog(uname):
+    user = User.query.filter_by(username = uname).first()
+    form = PostForm()
+
+    if not user.is_authenticated:
+        flash('please login', 'danger')
+        return redirect(url_for('main.login'))
+   
+    if form.validate_on_submit():
+        topic = form.topic.data
+        category = form.category.data
+        description = form.description.data
+        
+        post = Post(owner_id=user.id, topic=topic, category=category, description=description)
+        db.session.add(post)
+        db.session.commit()
+
+        flash('your Blog has been added successfuly!', 'success')
+        return redirect(url_for('main.index',uname=user.username))
+
+    return render_template('profile/blog.html', uname=user.username ,form =form)
+
+ 
+
+
+        
+
+
 
