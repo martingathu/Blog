@@ -6,10 +6,9 @@ COMMENTS
 {%endblock%}
 
 {% block content %}
-<div class="panel-body container"  style ="background:rgb(87, 88, 90);color:white; padding: 3px; font-size: large;">
-    <div style="padding: 3px;"><strong style="color: cyan;">Topic:</strong>{{ posts.topic}}</div>
-    <div style="padding: 3px;"><strong style="color: cyan;">Category:</strong>{{ posts.category | capitalize }}</div>
-    <div>{{ posts.description | capitalize }}</div>
+<div class="panel-body container"  style ="background:whitesmoke;color:black; padding: 3px; font-size: large;">
+    <div style="padding: 3px;"><strong style="color: cyan;"><h3>Topic:</strong>{{ posts.topic}}</h3></div>
+   <div>{{ posts.description | capitalize }}</div>
     <div style="padding: 3px;"><strong style="color: cyan;">Posted: </strong> {{posts.date | timeago }}</div>
     <div class="like" style="padding-top: 10px;">
         <p> <a class="btn" style="font-size: large;" href="{{url_for('main.comment', pname = posts.id)}}"><strong>Comment</strong></a></p>
