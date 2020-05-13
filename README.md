@@ -6,7 +6,7 @@ An application that allows users to use that one minute wisely. The users will s
 ## Description
 M&G Blog is a web application that allow user to post a question of any title, the auther of the blog can delete a post. users can add comments on the blogs.
 
-#### You can view the site at: 
+#### You can view the site at: https://martingathublogpost.herokuapp.com/
 
 ## User Stories
 These are the behaviours/features that the application implements for use by a user. As a user I would like to:
@@ -15,7 +15,7 @@ These are the behaviours/features that the application implements for use by a u
 * Signed in for me to leave a comment
 * View the blogs I have created in profile page
 * Comment on different blog posts
-* Submit a question in any category
+
 
 
 
